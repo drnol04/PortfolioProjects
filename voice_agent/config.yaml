@@ -1,0 +1,52 @@
+# Voice Agent Configuration
+# Copy this file and fill in your API keys in .env
+
+agent:
+  name: "Mi Agente de Voz"
+  language: "es"          # es = español, en = english
+  wake_word: "oye agente" # Palabra clave para activar (opcional)
+  silence_timeout: 2.0    # Segundos de silencio para terminar grabación
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  chunk_size: 1024
+  # Input device: None = micrófono por defecto
+  # Para Zoom: usa el nombre de tu dispositivo virtual (VB-Cable, BlackHole, etc.)
+  input_device: null
+  output_device: null
+
+stt:
+  model: "base"           # tiny, base, small, medium, large-v3
+  device: "cpu"           # cpu o cuda (si tienes GPU)
+  compute_type: "int8"    # int8 para CPU, float16 para GPU
+
+tts:
+  provider: "elevenlabs"  # elevenlabs o system
+  # voice_id se obtiene de ElevenLabs después de clonar tu voz
+  voice_id: ""            # Pon aquí tu Voice ID de ElevenLabs
+  stability: 0.5
+  similarity_boost: 0.8
+  model: "eleven_multilingual_v2"
+
+claude:
+  model: "claude-sonnet-4-6"
+  max_tokens: 1024
+  system_prompt: |
+    Eres un asistente de voz que representa a su usuario en reuniones de Zoom.
+    Responde de manera concisa y profesional, como lo haría el usuario.
+    Usa los documentos proporcionados como contexto principal.
+    Si no encuentras la información en los documentos, dilo claramente.
+    Responde siempre en el mismo idioma en que te pregunten.
+
+rag:
+  chunk_size: 1000
+  chunk_overlap: 200
+  top_k: 5               # Número de fragmentos de documentos a recuperar
+  persist_directory: "./chroma_db"
+
+zoom:
+  mode: "virtual_audio"  # virtual_audio o manual
+  # En modo virtual_audio, el agente usa un dispositivo de audio virtual
+  # para enrutar la respuesta directamente a Zoom
+  # Instala VB-Cable (Windows) o BlackHole (Mac) o pulseaudio-virtual (Linux)
