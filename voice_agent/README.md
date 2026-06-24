@@ -97,7 +97,7 @@ python main.py run
 
 El agente:
 1. Escucha cuando alguien habla (detección de silencio automática)
-2. Transcribe la pregunta con Whisper
+2. Transcribe la pregunta con faster-whisper (o Google SR como fallback)
 3. Busca contexto en tus documentos
 4. Genera respuesta con Claude
 5. Habla con tu voz clonada por el dispositivo virtual
